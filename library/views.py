@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from .forms import BookForm
 
 
 
@@ -182,3 +183,15 @@ class ShelfDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return Shelf.objects.filter(owner=self.request.user)
+
+class BookCreateView(LoginRequiredMixin, CreateView):
+    model = Book
+    template_name = 'library/book_form.html'
+    form_class = BookForm
+    success_url = reverse_lazy('book_list')
+
+class BookUpdateView(LoginRequiredMixin, UpdateView):
+    model = Book
+    template_name = 'library/book_form.html'
+    form_class = BookForm
+    success_url = reverse_lazy('book_list')
