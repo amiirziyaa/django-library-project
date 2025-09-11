@@ -1,0 +1,42 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">کتاب‌های قفسه: {{ shelf.name }}</h2>
+
+<table class="table table-striped table-bordered text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>عنوان</th>
+            <th>نویسنده</th>
+            <th>ژانر(ها)</th>
+            <th>عملیات</th> </tr>
+    </thead>
+    <tbody>
+        {% for book in shelf.books.all %}
+        <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>
+                {% for genre in book.genres.all %}
+                    <span class="badge bg-secondary">{{ genre.name }}</span>
+                {% endfor %}
+            </td>
+            <td>
+                <form action="{% url 'remove_from_shelf' shelf_pk=shelf.pk book_pk=book.pk %}" method="post" onsubmit="return confirm('آیا از حذف این کتاب از قفسه مطمئن هستید؟');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash"></i> حذف از این قفسه
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">هنوز هیچ کتابی به این قفسه اضافه نشده است.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'user_shelf_list' %}" class="btn btn-secondary mt-3">بازگشت به لیست قفسه‌ها</a>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'library/base_auth.html' %}
+
+{% block title %}ورود{% endblock %}
+
+{% block content %}
+    <i class="bi bi-book-half auth-logo mb-4"></i>
+    <h1 class="h3 mb-3 fw-normal">ورود به کتابخانه</h1>
+
+    {% if form.errors %}
+        <div class="alert alert-danger text-start small p-2" role="alert">
+            نام کاربری یا رمز عبور اشتباه است.
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-floating mb-3">
+            <input type="text" name="username" class="form-control" id="id_username" placeholder="نام کاربری" required>
+            <label for="id_username">نام کاربری</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control" id="id_password" placeholder="رمز عبور" required>
+            <label for="id_password">رمز عبور</label>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">ورود</button>
+    </form>
+
+    <p class="mt-4 text-muted">
+        حساب کاربری ندارید؟ <a href="{% url 'signup' %}">ثبت‌نام کنید</a>
+    </p>
+
+    <p class="mt-5 mb-3 text-muted">&copy; 2025</p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">پروفایل کاربری شما</h2>
+
+<div class="card">
+    <div class="card-header">
+        اطلاعات کاربر
+    </div>
+    <div class="card-body">
+        <p><strong>نام کاربری:</strong> {{ user_object.username }}</p>
+        <p><strong>ایمیل:</strong> {{ user_object.email|default:"- ثبت نشده -" }}</p>
+        <p><strong>تاریخ عضویت:</strong> {{ user_object.date_joined|date:"Y/m/d H:i" }}</p>
+        {# می‌توانید اطلاعات دیگری را نیز اینجا نمایش دهید #}
+    </div>
+</div>
+
+<a href="{% url 'book_list' %}" class="btn btn-secondary mt-3">بازگشت به کتابخانه</a>
+{% endblock %}

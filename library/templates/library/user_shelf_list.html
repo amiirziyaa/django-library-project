@@ -1,0 +1,26 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>قفسه‌های شما</h2>
+    <a href="{% url 'shelf_create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> ساخت قفسه جدید
+    </a>
+</div>
+
+<div class="list-group">
+    {% for shelf in shelves %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{% url 'shelf_detail' shelf.pk %}" class="text-decoration-none text-dark flex-grow-1">
+                {{ shelf.name }}
+                <span class="badge bg-secondary rounded-pill ms-2">{{ shelf.books.count }} کتاب</span>
+            </a>
+            <a href="{% url 'shelf_delete' shelf.pk %}" class="btn btn-sm btn-outline-danger ms-3">
+                <i class="bi bi-trash"></i> حذف
+            </a>
+        </div>
+    {% empty %}
+        <p class="text-center">شما هنوز هیچ قفسه‌ای نساخته‌اید.</p>
+    {% endfor %}
+</div>
+{% endblock %}

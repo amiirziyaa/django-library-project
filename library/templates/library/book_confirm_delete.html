@@ -1,0 +1,18 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+<div class="card border-danger">
+    <div class="card-header bg-danger text-white">
+        تایید حذف
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">آیا از حذف کتاب "{{ object.title }}" مطمئن هستید؟</h5>
+        <p class="card-text">این عمل قابل بازگشت نخواهد بود.</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">بله، حذف کن</button>
+            <a href="{% url 'book_list' %}" class="btn btn-secondary">خیر، انصراف</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

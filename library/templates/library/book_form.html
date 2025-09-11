@@ -1,0 +1,79 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+<h2>{% if form.instance.pk %}ویرایش کتاب{% else %}افزودن کتاب جدید{% endif %}</h2>
+<hr>
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <div class="mb-3">
+        <label class="form-label">{{ form.title.label }}</label>
+        {{ form.title }}
+        {% if form.title.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.title.errors.as_text }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">{{ form.author.label }}</label>
+        {{ form.author }}
+        {% if form.author.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.author.errors.as_text }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">{{ form.publication_year.label }}</label>
+        {{ form.publication_year }}
+        {% if form.publication_year.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.publication_year.errors.as_text }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">{{ form.price.label }}</label>
+        {{ form.price }}
+        {% if form.price.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.price.errors.as_text }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">{{ form.category.label }}</label>
+        {{ form.category }}
+        {% if form.category.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.category.errors.as_text }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">{{ form.genres.label }}</label>
+        {{ form.genres }}
+        <small class="form-text text-muted">برای انتخاب چند ژانر، کلید Ctrl (یا Cmd در مک) را نگه دارید.</small>
+        {% if form.genres.errors %}
+            <div class="text-danger small mt-1">
+                {{ form.genres.errors.as_text }}
+            </div>
+        {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-success">ذخیره</button>
+    <a href="{% url 'book_list' %}" class="btn btn-secondary">انصراف</a>
+</form>
+
+{% endblock %}
